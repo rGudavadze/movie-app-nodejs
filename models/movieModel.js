@@ -7,7 +7,7 @@ const movieSchema = new mongoose.Schema({
     min: 2
   },
   release_date: {
-    type: Date,
+    type: Number,
     required: [true, 'Movie must contain a release date']
   },
   countries: {
@@ -19,14 +19,14 @@ const movieSchema = new mongoose.Schema({
     required: [true, 'Movie must have a language field']
   },
   genres: {
-    type: String,
+    type: [String],
     required: [true, 'Movie must have a genres field']
   },
   overview: {
     type: String,
     required: [true, 'Movie must have a overview field']
   },
-  production_companies: {
+  director: {
     type: String,
     required: [true, 'Movie must have a production companies field']
   },
@@ -39,7 +39,7 @@ const movieSchema = new mongoose.Schema({
   imageCover: String,
   ratingsQuantity: Number,
   ratingsAverage: Number
-}, 
+},
 {
   toJSON: { virtuals: true },
   toObject: { virtual: true }
