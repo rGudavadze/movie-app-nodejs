@@ -11,6 +11,7 @@ router.route('/')
   .post(movieController.createMovie)
 
 router.route('/:id')
+  .get(movieController.getMovie)
   .patch(movieController.updateMovie)
   .delete(movieController.deleteMovie)
 

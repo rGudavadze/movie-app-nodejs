@@ -21,6 +21,24 @@ exports.getAllMovies = async(req, res) => {
   }
 }
 
+exports.getMovie = async(req, res) => {
+  try{
+    const movie = await Movie.findById(req.params.id)
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        movie
+      }
+    })
+  }catch(err){
+    res.status(400).json({
+      status: 'fail',
+      message: err
+    })
+  }
+}
+
 exports.createMovie = async(req, res) => {
   try{
     const movie = await Movie.create(req.body)
