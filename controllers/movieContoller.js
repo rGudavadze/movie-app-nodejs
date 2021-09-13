@@ -1,10 +1,19 @@
 const Movie = require('./../models/movieModel')
+const ApiFeatures = require('./../utils/ApiFeatures')
 
 
 exports.getAllMovies = async(req, res) => {
   try{
-    const movies = await Movie.find()
-  
+
+    const features = new ApiFeatures(Movie.find(), req.query)
+                        .filter()
+                        .sort()
+                        .limitFields()
+                        .paginate()
+    
+    
+    const movies = await features.query
+    
     res.status(200).json({
       status: "success",
       results: movies.length,
@@ -14,6 +23,7 @@ exports.getAllMovies = async(req, res) => {
     })
 
   }catch(err) {
+    console.log(err)
     res.status(400).json({
       status: 'fail',
       message: err

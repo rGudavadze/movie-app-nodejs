@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const slugify = require('slugify')
+
 
 const movieSchema = new mongoose.Schema({
   title: {
@@ -30,6 +32,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Movie must have a production companies field']
   },
+  slug: String,
   cast: [
     {
       type: mongoose.Schema.ObjectId,
@@ -44,6 +47,14 @@ const movieSchema = new mongoose.Schema({
   toJSON: { virtuals: true },
   toObject: { virtual: true }
 })
+
+// Document Middleware: runs before .save() and .create()
+movieSchema.pre('save', function(next){
+  this.slug = slugify(this.title, { lower: true })
+  next()
+})
+
+
 
 const Movie = mongoose.model('Movie', movieSchema)
 
