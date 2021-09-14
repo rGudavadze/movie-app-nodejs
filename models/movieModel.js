@@ -5,7 +5,7 @@ const slugify = require('slugify')
 const movieSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: [true, 'Movie must have a name field'],
+    required: [true, 'Movie must have a title field'],
     min: 2
   },
   release_date: {

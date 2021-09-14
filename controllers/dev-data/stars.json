@@ -1,0 +1,82 @@
+[
+  {
+    "_id": "614087a4d8da42531d61d216",
+    "name": "Bryan Cranston",
+    "birth_date": "07/03/1956",
+    "image": "bryan-cranston-1956.jpg",
+    "movies": ["6139f390823faea5d5dee494"]
+  },
+  {
+    "_id": "614087f7d8da42531d61d218",
+    "name": "Aaron Paul",
+    "birth_date": "27/08/1979",
+    "image": "aaron-paul-1979.jpg",
+    "movies": ["6139f390823faea5d5dee494"]
+  },
+  {
+    "_id": "61408908d8da42531d61d21a",
+    "name": "Matthew McConaughey",
+    "birth_date": "04/11/1969",
+    "image": "matthew-mcConaughey-1969.jpg",
+    "movies": [
+      "61387ed1f73cd8ed8c99a9df", 
+      "6140957d939fd4248acfe853"
+    ]
+  },
+  {
+    "_id": "6140894fd8da42531d61d21c",
+    "name": "Anne Hathaway",
+    "birth_date": "12/11/1982",
+    "image": "anne-hathaway-1982.jpg",
+    "movies": ["61387ed1f73cd8ed8c99a9df"]
+  },
+  {
+    "_id": "6140894fd8da42531d61d21e",
+    "name:": "Christian Bale",
+    "birth_date": "30/01/1974",
+    "image": "christian-bale-1974.jpg",
+    "movies": ["613f2dee698c4753981aa645"]
+  },
+  {
+    "_id": "6140894fd8da42531d61d21g",
+    "name:": "Leonardo DiCaprio",
+    "birth_date": "11/11/1974",
+    "image": "leonardo-dicaprio-1974.jpg",
+    "movies": ["613f2e31698c4753981aa647"]
+  },
+  {
+    "_id": "6140894fd8da42531d61d21i",
+    "name:": "Joseph Gordon-Levitt",
+    "birth_date": "17/02/1981",
+    "image": "joseph-gordon-levitt-1981.jpg",
+    "movies": ["613f2e31698c4753981aa647"]
+  },
+  {
+    "_id": "6140894fd8da42531d61d21k",
+    "name:": "Emilia Clarke",
+    "birth_date": "23/10/1986",
+    "image": "emilia-clarke-1986.jpg",
+    "movies": ["613f2e84698c4753981aa649"]
+  },
+  {
+    "_id": "6140894fd8da42531d61d21m",
+    "name:": "Peter Dinklage",
+    "birth_date": "11/06/1969",
+    "image": "peter-dinklage-1969.jpg",
+    "movies": ["613f2e84698c4753981aa649"]
+  },
+  {
+    "_id": "6140894fd8da42531d61d21o",
+    "name:": "Kit Harington",
+    "birth_date": "26/12/1986",
+    "image": "kit-harington-1986.jpg",
+    "movies": ["613f2e84698c4753981aa649"]
+  },
+  {
+    "_id": "6140894fd8da42531d61d21q",
+    "name:": "Woody Harrelson",
+    "birth_date": "23/07/1961",
+    "image": "woody-harrelson-1986.jpg",
+    "movies": ["6140957d939fd4248acfe853"]
+  }
+]

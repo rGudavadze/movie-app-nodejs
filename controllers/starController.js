@@ -1,28 +1,19 @@
-const Movie = require('./../models/movieModel')
-const ApiFeatures = require('./../utils/ApiFeatures')
+const Star = require('./../models/starModel')
 
 
-exports.getAllMovies = async(req, res) => {
+exports.getAllStars = async(req, res) => {
   try{
+    const stars = await Star.find()
 
-    const features = new ApiFeatures(Movie.find(), req.query)
-                        .filter()
-                        .sort()
-                        .limitFields()
-                        .paginate()
-    
-    
-    const movies = await features.query
-    
     res.status(200).json({
       status: "success",
-      results: movies.length,
+      results: stars.length,
       data: {
-        movies
+        cast: stars
       }
     })
 
-  }catch(err) {
+  }catch(err){
     res.status(400).json({
       status: 'fail',
       message: err.message
@@ -30,16 +21,17 @@ exports.getAllMovies = async(req, res) => {
   }
 }
 
-exports.getMovie = async(req, res) => {
+exports.getStar = async(req, res) => {
   try{
-    const movie = await Movie.findById(req.params.id)
+    const star = await Star.findById(req.params.id)
 
     res.status(200).json({
       status: 'success',
       data: {
-        movie
+        star
       }
     })
+
   }catch(err){
     res.status(400).json({
       status: 'fail',
@@ -48,14 +40,14 @@ exports.getMovie = async(req, res) => {
   }
 }
 
-exports.createMovie = async(req, res) => {
+exports.createStar = async(req, res) => {
   try{
-    const movie = await Movie.create(req.body)
-    
+    const newStar = await Star.create(req.body)
+
     res.status(201).json({
       message: 'success',
       data: {
-        movie
+        star: newStar
       }
     })
 
@@ -67,17 +59,17 @@ exports.createMovie = async(req, res) => {
   }
 }
 
-exports.updateMovie = async(req, res) => {
+exports.updateStar = async(req, res) => {
   try{
-    const newMovie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
+    const newStar = await Star.findByIdAndUpdate(req.params.id, rea.body, {
       new: true,
       runValidators: true
     })
-    
+
     res.status(200).json({
       message: 'success',
       data: {
-        movie: newMovie
+        star: newStar
       }
     })
 
