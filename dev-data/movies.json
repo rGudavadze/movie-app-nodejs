@@ -8,7 +8,7 @@
     "genres": ["Adventure", "Drama", "Sci-Fi"],
     "overview": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
     "director": "Christopher Nolan",
-    "cast": [],
+    "cast": ["61408908d8da42531d61d21a", "6140894fd8da42531d61d21c"],
     "imageCover": "movie-interstellar.jpg"
   },
   {
@@ -20,7 +20,7 @@
     "genres": ["Detective", "Criminal"],
     "overview": "A high school chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine in order to secure his family's future.",
     "director": "Vince Gilligan",
-    "cast": [],
+    "cast": ["614087a4d8da42531d61d216", "614087f7d8da42531d61d218"],
     "imageCover": "movie-breaking-bad.jpg"
   },
   {
@@ -32,21 +32,10 @@
     "genres": ["Drama", "Crime", "Fantasy"],
     "overview": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
     "director": "Christopher Nolan",
-    "cast": [],
+    "cast": ["6140894fd8da42531d61d21e"],
     "imageCover": "movie-the-dark-knight.jpg"
   },
-  {
-    "_id": "613f2e31698c4753981aa647",
-    "title": "Inception",
-    "release_date": 2010,
-    "countries": ["USA"],
-    "languages": ["ENG", "GEO"],
-    "genres": ["Adventure", "Sci-Fi"],
-    "overview": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
-    "director": "Christopher Nolan",
-    "cast": [],
-    "imageCover": "movie-inception.jpg"
-  },
+  
   {
     "_id": "613f2e84698c4753981aa649",
     "title": "Game of Thrones",
@@ -56,7 +45,7 @@
     "genres": ["Adventure", "Action"],
     "overview": "Nine noble families fight for control over the lands of Westeros, while an ancient enemy returns after being dormant for millennia.",
     "director": "David Benioff",
-    "cast": [],
+    "cast": ["6140894fd8da42531d61d21k", "6140894fd8da42531d61d21m", "6140894fd8da42531d61d21o"],
     "imageCover": "movie-game-of-thrones.jpg"
   },
   {
@@ -68,7 +57,7 @@
     "genres": ["Drama", "Crime"],
     "overview": "Seasonal anthology series in which police investigations unearth the personal and professional secrets of those involved, both within and outside the law.",
     "director": "Nic Pizzolatto",
-    "cast": [],
+    "cast": ["61408908d8da42531d61d21a", "6140894fd8da42531d61d21q"],
     "imageCover": "true-detective.jpg"
   }
 ]
