@@ -1,4 +1,5 @@
-const {Schema, Model} = require('mongoose')
+const bcrypt = require('bcryptjs')
+const {Schema, model} = require('mongoose')
 
 const userSchema = new Schema({
 
@@ -8,7 +9,8 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
-    required: [true, '']
+    required: [true, ''],
+    unique: true
   },
   photo: String,
   role: {
@@ -27,7 +29,7 @@ const userSchema = new Schema({
     required: [true, ''],
     minlength: 8
   },
-  passwordConfirme: {
+  passwordConfirm: {
     type: String,
     required: [true, ''],
     validate: {
@@ -45,6 +47,21 @@ const userSchema = new Schema({
 
 })
 
-const User = Model('User', userSchema)
+userSchema.pre(/^find/, function(next) {
+  // This points to the current query
+  this.find({active: {$ne: false}})
+  next()
+})
+
+
+
+
+userSchema.methods.correctPassword = async function(currentPassword, userPassword){
+  return await bcrypt.compare(currentPassword, userPassword)
+}
+
+
+
+const User = model('User', userSchema)
 
 module.exports = User
