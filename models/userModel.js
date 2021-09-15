@@ -39,6 +39,7 @@ const userSchema = new Schema({
       message: 'Passwords are not same!'
     }
   },
+  passwordChangedTime: Date,
   active: {
     type: Boolean,
     default: true,
@@ -53,7 +54,18 @@ userSchema.pre(/^find/, function(next) {
   next()
 })
 
+userSchema.pre('save', function(next) {
+  if(!this.isModified('password')) return next()
+  this.password = await bcrypt.hash(this.password, 12)
+  this.passwordConfirm = undefined
+  next()
+})
 
+userSchema.pre('save', function(next) {
+  if(!this.isModified('password') || this.isNew) return next()
+  this.passwordChangedTime = Date.now() - 1000
+  next()
+})
 
 
 userSchema.methods.correctPassword = async function(currentPassword, userPassword){

@@ -63,6 +63,7 @@ exports.login = async(req, res) => {
       throw error("Incorrecr email or pasword")
   
     createAndSendToken(user, 200, res)
+    
   }catch(err){
     res.status(400).json({
       status: 'fail',
