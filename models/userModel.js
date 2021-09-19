@@ -72,7 +72,15 @@ userSchema.methods.correctPassword = async function(currentPassword, userPasswor
   return await bcrypt.compare(currentPassword, userPassword)
 }
 
-
+userSchema.methods.changedPasswordAfter = function(JWTTimestamp){
+  if(this.passwordChangedTime){
+    const changedTimestamp = parseInt(this.passwordChangedTime.getTime() / 1000, 10)
+      
+    return JWTTimestamp < changedTimestamp
+  }
+  // false means not changed
+  return false
+}
 
 const User = model('User', userSchema)
 

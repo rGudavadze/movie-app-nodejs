@@ -1,11 +1,14 @@
 const express = require('express')
 const userController = require('./../controllers/userController')
-const authController = require('./../controllers/authController')
+const auth = require('./../controllers/authController')
 
 const router = express.Router()
 
-router.post('/signup', authController.signup)
-router.post('/login', authController.login)
+router.post('/signup', auth.signup)
+router.post('/login', auth.login)
+
+// Middleware for all the routes below. Middlewares runs in sequense.
+router.use(auth.protect, auth.allowAccess('admin'))
 
 router.route('/')
   .get(userController.getAllUsers)

@@ -1,5 +1,6 @@
 const express = require('express')
 const starController = require('./../controllers/starController')
+const auth = require('./../controllers/authController')
 
 
 const router = express.Router()
@@ -7,12 +8,12 @@ const router = express.Router()
 
 router.route('/')
   .get(starController.getAllStars)
-  .post(starController.createStar)
+  .post(auth.protect, auth.allowAccess('admin'), starController.createStar)
 
 router.route('/:id')
   .get(starController.getStar)
-  .post(starController.updateStar)
-  .patch(starController.updateStar)
+  .post(auth.protect, auth.allowAccess('admin'), starController.updateStar)
+  .patch(auth.protect, auth.allowAccess('admin'), starController.updateStar)
 
 
 module.exports = router

@@ -12,7 +12,7 @@ const createAndSendToken = (user, statusCode, res) => {
   const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRES_IN})
   
   const cookieOptions = {
-    expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN),
+    expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
     httpOnly: true
   }
   if(process.env.NODE_ENV === 'production') cookieOptions.secure = true
@@ -75,23 +75,47 @@ exports.protect = async(req, res, next) => {
     let token
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
       token = req.headers.authorization.split(' ')[1]
-    }else if(req.cookies.jwt) {
-      token = req.cookies.jwt
+    // }else if(req.cookies.jwt) {
+    //   token = req.cookies.jwt
     }
     if(!token) throw new Error('You are not logged in! Please log in to get access')
 
     // 2) Verification token
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
-    console.log(decoded)
+    
     // 3) Check if user still exists
     const currentUser = await User.findById(decoded.id)
-    if(!currentUser) await new Error('The user belonging to this token no longer exists!')
+    if(!currentUser) 
+      throw new Error('The user belonging to this token no longer exists!')
 
     // 4) Check if user changed password after the token was issued
-    
+    if(currentUser.changedPasswordAfter(decoded.iat)) 
+      throw new Error('User recently changed password! Please log in again')
 
+    req.user = currentUser
+    next()
 
   }catch(err){
+    res.status(400).json({
+      status: 'fail',
+      message: err.message
+    })
+  }
+}
 
+exports.allowAccess = (...roles) => {
+  return (req, res, next) => {
+    try{
+      if(!roles.includes(req.user.role))
+        throw new Error('You do not have permission to perform this action!')
+
+      next()
+
+    }catch(err){
+      res.status(400).json({
+        status: 'fail',
+        message: err.message
+      })
+    }
   }
 }

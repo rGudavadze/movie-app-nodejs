@@ -3,7 +3,9 @@ const ApiFeatures = require('./../utils/ApiFeatures')
 exports.getAll = Model => 
   async(req, res) => {
     try{
-      const features = new ApiFeatures(Model.find(), req.query)
+      let filter = {} // for nested route
+      if(req.params.movieId) filter = { movie: req.params.movieId }
+      const features = new ApiFeatures(Model.find(filter), req.query)
                         .filter()
                         .sort()
                         .limitFields()
@@ -27,10 +29,12 @@ exports.getAll = Model =>
   }
 
 
-exports.getOne = Model => 
+exports.getOne = (Model, populateOptions)=> 
   async(req, res) => {
     try{
-      const doc = await Model.findById(req.params.id)
+      let query = Model.findById(req.params.id)
+      if(populateOptions) query.populate(populateOptions)
+      const doc = await query
 
       res.status(200).json({
         status: 'success',
