@@ -53,11 +53,32 @@ reviewSchema.static.calcAvgRating = async function(movieId){
       }
     }
   ])
-  
+  if(stats.length > 0){
+    await Movie.findByIdAndUpdate(movieId, {
+      ratingsQuantity: stats[0].nRating,
+      ratingsAverage: stats[0].avgRating
+    })
+  }else {
+    await Movie.findByIdAndUpdate(movieId, {
+      ratingsQuantity: 0,
+      ratingsAverage: 4.5
+    })
+  }
 }
 
-reviewSchema.post('save', function(next){
-  
+reviewSchema.post('save', function(){
+  // We do not have Review model here so we use this.constructor
+  this.constuctor.calcAvgRating(this.movie)
+})
+
+reviewSchema.pre(/^findOneAnd/, async function(next){
+  this.r = await this.findOne()
+  next()
+})
+
+reviewSchema.post(/^findOneAnd/, async function(){
+  // await this.findOne(); does NOT work here, query has already executed.
+  this.r.constuctor.calcAvgRating(this.r.movie)
 })
 
 
