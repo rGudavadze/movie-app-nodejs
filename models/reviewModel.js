@@ -1,4 +1,6 @@
 const {Schema, model} = require('mongoose')
+const Movie = require('./movieModel')
+
 
 const reviewSchema = new Schema({
   review: {
@@ -36,6 +38,26 @@ reviewSchema.pre(/^find/, function(next){
     select: 'name photo'
   })
   next()
+})
+
+reviewSchema.static.calcAvgRating = async function(movieId){
+  const stats = await this.aggregate([
+    {
+      $match: { movie: movieId }
+    },
+    {
+      $group: {
+        _id: '$movie',
+        nRating: { $sum: 1 },
+        avgRating: { $avg: '$rating' }
+      }
+    }
+  ])
+  
+}
+
+reviewSchema.post('save', function(next){
+  
 })
 
 
