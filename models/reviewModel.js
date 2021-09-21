@@ -19,7 +19,7 @@ const reviewSchema = new Schema({
   movie: {
     type: Schema.ObjectId,
     ref: 'Movie',
-    required: [true, 'Review must belong to a tour']
+    required: [true, 'Review must belong to a movie']
   },
   user: {
     type: Schema.ObjectId,
@@ -40,19 +40,19 @@ reviewSchema.pre(/^find/, function(next){
   next()
 })
 
-reviewSchema.static.calcAvgRating = async function(movieId){
+reviewSchema.statics.calcAvgRating = async function(movieId){
   const stats = await this.aggregate([
     {
-      $match: { movie: movieId }
+      $match: {movie: movieId}
     },
     {
       $group: {
         _id: '$movie',
         nRating: { $sum: 1 },
-        avgRating: { $avg: '$rating' }
+        avgRating: { $avg: '$rating'}
       }
     }
-  ])
+])
   if(stats.length > 0){
     await Movie.findByIdAndUpdate(movieId, {
       ratingsQuantity: stats[0].nRating,
@@ -66,9 +66,9 @@ reviewSchema.static.calcAvgRating = async function(movieId){
   }
 }
 
-reviewSchema.post('save', function(){
+reviewSchema.post('save', function() {
   // We do not have Review model here so we use this.constructor
-  this.constuctor.calcAvgRating(this.movie)
+  this.constructor.calcAvgRating(this.movie)
 })
 
 reviewSchema.pre(/^findOneAnd/, async function(next){
@@ -76,9 +76,9 @@ reviewSchema.pre(/^findOneAnd/, async function(next){
   next()
 })
 
-reviewSchema.post(/^findOneAnd/, async function(){
+reviewSchema.post(/^findOneAnd/, function(){
   // await this.findOne(); does NOT work here, query has already executed.
-  this.r.constuctor.calcAvgRating(this.r.movie)
+  this.r.constructor.calcAvgRating(this.r.movie)
 })
 
 

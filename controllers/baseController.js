@@ -36,6 +36,8 @@ exports.getOne = (Model, populateOptions)=>
       if(populateOptions) query.populate(populateOptions)
       const doc = await query
 
+      if(!doc) throw new Error('No document found with that ID')
+
       res.status(200).json({
         status: 'success',
         data: {
@@ -79,6 +81,8 @@ exports.updateOne = Model =>
         runValidators: true
       })
 
+      if(!newDoc) throw new Error('No document found with that ID')
+
       res.status(200).json({
         status: 'success',
         data: {
@@ -97,7 +101,9 @@ exports.updateOne = Model =>
 exports.deleteOne = Model => 
   async(req, res) => {
     try{
-      await Model.findByIdAndDelete(req.params.id)
+      const doc = await Model.findByIdAndDelete(req.params.id)
+
+      if(!doc) throw new Error('No document found with that ID')
       
       res.status(204).json({
         status: 'success',

@@ -10,8 +10,8 @@ const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSW
 
 mongoose.connect(DB, {
   useNewUrlParser: true,
-  //useCreateIndex: true,
-  //useFindAndModify: false,
+  useCreateIndex: true,
+  useFindAndModify: false,
   useUnifiedTopology: true
 }).then(() => console.log("DB connection successful!"))
 
@@ -23,6 +23,7 @@ const server = app.listen(port, () => {
 
 // Unhandled Rejection Error
 process.on('unhandledRejection', err => {
+  console.log(err)
   console.log(err.name, err.message)
   console.log('UNHANDLER REJECTION! Shutting down...')
   server.close(() => {
