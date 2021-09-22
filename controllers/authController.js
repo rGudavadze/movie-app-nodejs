@@ -2,6 +2,7 @@ const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
 const { promisify } = require('util')
 const User = require('./../models/userModel')
+const Review = require('./../models/reviewModel')
 
 
 // const signToken = id => {
@@ -117,5 +118,22 @@ exports.allowAccess = (...roles) => {
         message: err.message
       })
     }
+  }
+}
+
+exports.correctUser = async(req, res, next) => {
+  try{
+    const review = await Review.findById(req.params.id)
+    
+    if(req.user.id != review.user._id)
+      throw new Error('This review does not belong to you!')
+    
+    next()
+
+  }catch(err){
+    res.status(400).json({
+      status: 'fail',
+      message: err.message
+    })
   }
 }
